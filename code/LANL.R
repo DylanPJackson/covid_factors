@@ -1,3 +1,14 @@
+# filename
+#       LANL.R
+#
+# description
+#       Grab all LANL-GrowthRate's predictions, reformat the data so that
+#       it is represented as cumulative deaths, then plot the predicted
+#       cumulative deaths.
+# author
+#       Dylan P. Jackson
+
+
 # Read in all of LANL's predictions into a list
 library(readr)
 model_name <- "LANL-GrowthRate"
