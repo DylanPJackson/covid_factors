@@ -5,7 +5,7 @@ COVID-19 related deaths through an analysis of existing prediction models.
 Ongoing research and findings are updated on [this Overleaf](https://www.overleaf.com/read/jfwhdwprydxg).
 
 ## Visualizations
-![summ](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/summ.pdf)
+![summ](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/summ.png)
 
 ![LANLweek1](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/LANL_1week.png)
 
