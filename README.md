@@ -9,6 +9,8 @@ Ongoing research and findings are updated on [this Overleaf](https://www.overlea
 
 ![USdeaths](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/us_deaths.png)
 
+![LANLActual](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/lanl_comp.png)
+
 ## Why?
 Over the summer, I was looking to start a new project. I was reading one of my
 favorite news sites, FiveThirtyEight, and saw that they had created a dashboard
