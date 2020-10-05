@@ -32,9 +32,16 @@ lanl_pred <- function(){
     for (table_num in 1:size){
         # Get the target date for this dataset
         date <- tbl[[table_num]]$target_end_date[1]
-        # Calculate the sum of all individual state's predictions
-        value <- sum(tbl[[table_num]]$value[tbl[[table_num]]$target ==
-            "1 wk ahead cum death" & tbl[[table_num]]$type == "point"])
+        value <- 0
+        # Get cum for US if available
+        value <- tbl[[table_num]]$value[tbl[[table_num]]$target ==
+            "1 wk ahead cum death" & tbl[[table_num]]$type == "point"
+            & tbl[[table_num]]$location == "US"]
+        # Calculate the sum of all individual state's predictions otherwise
+        if (length(value) == 0){
+            value <- sum(tbl[[table_num]]$value[tbl[[table_num]]$target ==
+                "1 wk ahead cum death" & tbl[[table_num]]$type == "point"])
+        }
         predictions$date[table_num] <- date
         predictions$value[table_num] <- value
     }
@@ -50,7 +57,7 @@ lanl_pred <- function(){
     end <- format(predictions$date[nrow(predictions)], format = "%b %d, %Y")
     title <- sprintf("LANL 1 week out US predictions from %s to %s", start, end)
     predictions$value <- predictions$value / 10000
-    plot(predictions, main = title, type = "b", xlab = "Dates", ylab = "Total US Deaths (Per 10000)")
+    plot(predictions, main = title, type = "p", xlab = "Dates", ylab = "Total US Deaths (Per 10000)", col = "blue")
     dev.off()
     return (predictions)
 }
