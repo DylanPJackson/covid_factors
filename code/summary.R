@@ -28,4 +28,6 @@ summ <- data.frame(model = c("LANL-GrowthRate"),
                    max_error_date = c(max_date),
                    min_error_date = c(min_date))
 
+png("../visualizations/summ.png", height = 720, width = 720)
 grid.table(summ, rows = NULL)
+dev.off()
