@@ -40,6 +40,9 @@ analyse <- function(models= c("LANL-GrowthRate", "MOBS-GLEAM_COVID",
         # Add each model's statistics to summary analysis
         analysis <- rbind(analysis, new_row)
     }
+
+    # Reorder analysis by error ASC
+    analysis <- analysis[order(analysis$mse),]
     
     # Generate summary table
     png("../visualizations/sum_tab.png", height = 720, width = 720)
