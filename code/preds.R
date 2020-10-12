@@ -33,7 +33,7 @@ preds <- function(model_name){
             "1 wk ahead cum death" & tbl[[table_num]]$type == "point"
             & tbl[[table_num]]$location == "US"]
         # Calculate the sum of all individual state's predictions otherwise
-        if (length(value) == ){
+        if (length(value) == 0){
             value <- sum(tbl[[table_num]]$value[tbl[[table_num]]$target ==
                 "1 wk ahead cum death" & tbl[[table_num]]$type == "point"])
         }
@@ -45,6 +45,9 @@ preds <- function(model_name){
     by_date <- predictions %>% group_by(date)
     mean_by_date <- by_date %>% summarise(date = date, value = mean(value))
     predictions <- distinct(mean_by_date)
+    
+    # Set values to per 10000
+    predictions$value <- predictions$value / 10000
 
     return (predictions)
 }

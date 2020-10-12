@@ -10,7 +10,7 @@
 
 us_deaths <- function(){
     # Read in the data
-    usd_unf <- read.csv("../data/us_deaths_09_17_20.csv")
+    usd_unf <- read.csv("/home/dylan/repos/covid19-forecast-hub/data-truth/truth-Cumulative\ Deaths.csv")
 
     # Trivial reformatting
     cum_d <- usd_unf$location == "US"
@@ -22,7 +22,6 @@ us_deaths <- function(){
     png('../visualizations/us_deaths.png', width = 720, height = 720)
     plot(x = usd_f$date, y = usd_f$value, xlab = "Dates",
         ylab = "U.S. Cumulative Deaths (Per 10000)", 
-        main = "U.S. Cumulative Deaths from Feb 29,2020 - Sep 16,2020",
         type = "l", col = "red")
     dev.off()
     return (usd_f)
