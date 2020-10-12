@@ -2,16 +2,22 @@
 An Independent Study supervised by Dr. Homan at RIT to better anticipate
 COVID-19 related deaths through an analysis of existing prediction models.
 
-Ongoing research and findings are updated on [this Overleaf](https://www.overleaf.com/read/jfwhdwprydxg).
+The general aim is to identify which features of various models are most
+reliable for predicting changes in COVID-19 death rates. Thus, we analyse
+the performance of various models, and identify during what time periods
+these models performed the best in. In doing so, we can conclude which 
+models were most reliable, thereby concluding which features are most reliable.
+
+A much more in depth explanation full of research and discussion is updated 
+on [this Overleaf](https://www.overleaf.com/read/jfwhdwprydxg).
+
+Current graphs of various model performance is available in the
+visualizations folder.
 
 ## Visualizations
-![summ](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/summ.png)
-
-![LANLweek1](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/LANL_1week.png)
-
-![USdeaths](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/us_deaths.png)
-
-![LANLActual](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/lanl_comp.png)
+Table of model name, error, dates of max and min error, and number of obversations
+ordered by error
+![sum\_tab](https://github.com/DylanPJackson/covid_factors/blob/master/visualizations/sum_tab.png)
 
 ## Why?
 Over the summer, I was looking to start a new project. I was reading one of my
