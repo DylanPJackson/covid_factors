@@ -69,8 +69,14 @@ c_analyse <- function(truth, preds, model){
     ggsave(path, bar_plot) 
 
     # Generate distribution of errors
-    #df_errors <- data.frame(error = errors_full$error)
-    #dist <- ggplot(df_errors, aes(error)) + geom_histogram() + labs(title = "Error distribution")
+    title <- sprintf("Error distribution of %s predictions from %s to %s", model, start, end)
+    path <- sprintf("../visualizations/%s/errors_dist.png", model)
+    df_errors <- data.frame(error = errors_full$error)
+    dist <- ggplot(df_errors, aes(error)) + 
+            geom_histogram(color = "darkblue", fill = "lightblue") + 
+            labs(title = title) + 
+            theme(plot.title = element_text(size = 12))
+    ggsave(path, dist)
 
     return (list(mserr, max_date, min_date, num_preds))
     
