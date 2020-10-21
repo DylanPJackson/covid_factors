@@ -9,6 +9,7 @@
 #
 # author
 #       Dylan P. Jackson
+library(ggplot2)
 
 # Compute squared error element wise
 squared_error <- function(truth, preds){
@@ -28,7 +29,7 @@ c_analyse <- function(truth, preds, model){
     # Get indices of dates from preds_full that match with those from preds
     ind_dates <- preds_full$date %in% preds$date
     preds_full$value[ind_dates] <- preds$value[ind_values]
-    
+
     # Save comparison graph
     start <- format(dates[1], "%b %d, %Y")
     end <- format(dates[length(dates)], "%b %d, %Y")
@@ -55,6 +56,21 @@ c_analyse <- function(truth, preds, model){
     max_date <- preds_full$date[ind_dates][which.max(errors)]
     min_date <- preds_full$date[ind_dates][which.min(errors)]
     num_preds <- length(ind_values) 
+
+    # Generate error data in same manner as predictions graph above 
+    errors_full <- data.frame(date = dates, error = values)
+    errors_full$error <- NA
+    errors_full$error[ind_dates] <- errors[ind_values]
+
+    # Generate bar plot of errors 
+    title <- sprintf("%s prediction errors from %s to %s", model, start, end)
+    path <- sprintf("../visualizations/%s/errors_bar.png", model)
+    bar_plot <- ggplot(errors_full, aes(date, error)) + geom_col(aes(fill = error)) + labs(title = title) 
+    ggsave(path, bar_plot) 
+
+    # Generate distribution of errors
+    #df_errors <- data.frame(error = errors_full$error)
+    #dist <- ggplot(df_errors, aes(error)) + geom_histogram() + labs(title = "Error distribution")
 
     return (list(mserr, max_date, min_date, num_preds))
     
