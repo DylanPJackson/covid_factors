@@ -53,6 +53,9 @@ c_analyse <- function(truth, preds, model){
     errors <- squared_error(truth$value[ind_dates] * 10000,
         preds_full$value[ind_dates] * 10000)
     mserr <- mean(errors)
+    recent_errors <- errors[(length(errors) - 7):length(errors)]
+    recent_median_error <- median(recent_errors)
+    recent_variance <- var(recent_errors)
     max_date <- preds_full$date[ind_dates][which.max(errors)]
     min_date <- preds_full$date[ind_dates][which.min(errors)]
     num_preds <- length(ind_values) 
@@ -78,6 +81,7 @@ c_analyse <- function(truth, preds, model){
             theme(plot.title = element_text(size = 12))
     ggsave(path, dist)
 
-    return (list(mserr, max_date, min_date, num_preds))
+    return (list(mserr, recent_median_error, recent_variance, max_date, 
+                min_date, num_preds))
     
 }

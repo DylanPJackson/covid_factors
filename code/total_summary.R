@@ -21,7 +21,9 @@ analyse <- function(models= c("LANL-GrowthRate", "MOBS-GLEAM_COVID",
                     "JHU_IDD-CovidSP", "USACE-ERDC_SEIR", "IHME-CurveFit",
                     "UA-EpiCovDA", "UT-Mobility")){
     # Initialize analysis dataframe 
-    analysis <- data.frame(name = character(), mse = numeric(),
+    analysis <- data.frame(name = character(), mse = numeric(), 
+                            recent_median_error = numeric(),
+                            recent_variance = numeric(),
                             max_error_date = numeric(), 
                             min_error_date= numeric(), num_preds = numeric())
 
@@ -35,17 +37,20 @@ analyse <- function(models= c("LANL-GrowthRate", "MOBS-GLEAM_COVID",
         # Get statistics from predictions. This call also produces plots
         stats <- c_analyse(deaths, predictions, model) 
         new_row <- data.frame(name = model, mse = stats[[1]], 
-                    max_error_date = stats[[2]], min_error_date = stats[[3]],
-                    num_preds = stats[[4]]) 
+                    recent_median_error = stats[[2]], recent_variance = stats[[3]],
+                    max_error_date = stats[[4]], min_error_date = stats[[5]], 
+                    num_preds = stats[[6]]) 
         # Add each model's statistics to summary analysis
         analysis <- rbind(analysis, new_row)
     }
 
     # Reorder analysis by error ASC
-    analysis <- analysis[order(analysis$mse),]
+    analysis <- analysis[order(analysis$recent_median_error),]
+    analysis$mse <- analysis$mse / 10000
+    analysis$recent_median_error <- analysis$recent_median_error / 10000
     
     # Generate summary table
-    png("../visualizations/sum_tab.png", height = 720, width = 720)
+    png("../visualizations/sum_tab.png", height = 800, width = 800)
     g <- tableGrob(analysis, rows = NULL)
     g <- gtable_add_grob(g,
             grobs = rectGrob(gp = gpar(fill = NA, lwd = 2)),
