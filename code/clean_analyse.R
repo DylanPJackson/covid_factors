@@ -60,10 +60,26 @@ c_analyse <- function(truth, preds, model){
     min_date <- preds_full$date[ind_dates][which.min(errors)]
     num_preds <- length(ind_values) 
 
+
     # Generate error data in same manner as predictions graph above 
     errors_full <- data.frame(date = dates, error = values)
     errors_full$error <- NA
     errors_full$error[ind_dates] <- errors[ind_values]
+
+    # Create rolling variance vector
+    vars <- numeric() 
+    num_errors <- length(errors)
+    var_size <- 3 # Size of range for computing variance
+    for (i in num_errors : var_size){
+        vars <- append(vars, var(errors[i : (i - var_size + 1)]))
+    }
+    vars <- rev(vars)
+    error_inds <- which(!is.na(errors_full$error))
+    error_inds <- error_inds[var_size : num_errors]
+    var_df <- data.frame(dates = truth$date, variance = errors_full$error)
+    var_df$variance <- NA
+    var_df$variance[error_inds] <- vars
+    variances <- var_df$variance
 
     # Generate bar plot of errors 
     title <- sprintf("%s prediction errors from %s to %s", model, start, end)
@@ -82,6 +98,6 @@ c_analyse <- function(truth, preds, model){
     ggsave(path, dist)
 
     return (list(mserr, recent_median_error, recent_variance, max_date, 
-                min_date, num_preds))
+                min_date, num_preds, errors_full, variances))
     
 }
