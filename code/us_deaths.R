@@ -16,7 +16,7 @@ us_deaths <- function(){
     cum_d <- usd_unf$location == "US"
     usd_f <- usd_unf[cum_d,]
     usd_f$date <- as.Date(usd_f$date)
-    usd_f$value <- usd_f$value / 10000
+    usd_f$value <- usd_f$value 
 
     # Plot and save 
     png('../visualizations/us_deaths.png', width = 720, height = 720)

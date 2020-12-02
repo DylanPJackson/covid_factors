@@ -47,7 +47,7 @@ preds <- function(model_name){
     predictions <- distinct(mean_by_date)
     
     # Set values to per 10000
-    predictions$value <- predictions$value / 10000
+    predictions$value <- predictions$value 
 
     return (predictions)
 }
